@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тобі послання, котику✨</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff0f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* Щоб кнопка не створювала прокрутку, коли втікає */
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 400px;
+            width: 90%;
+            border: 2px solid #ffb6c1;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 { color: #ff69b4; font-size: 24px; }
+        
+        .buttons-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        /* Стиль для кнопки "Ні", яка буде втікати */
+        #no-btn {
+            background-color: #bdc3c7;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .hidden { display: none; }
+
+        #compliment-text {
+            font-size: 18px;
+            color: #555;
+            margin: 20px 0;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="welcome-screen" class="container">
+    <h1>Привіт, кицюня! Хочеш отримати комплімент?😊</h1>
+    <div class="buttons-row">
+        <button onclick="startApp()">ТАК!</button>
+        <button id="no-btn" onmouseover="moveButton()">Ні</button>
+    </div>
+</div>
+
+<div id="main-screen" class="container hidden">
+    <div style="font-size: 40px;">❤️</div>
+    <h1>Ти неймовірний!))</h1>
+    <div id="compliment-text">Натисни кнопку нижче...</div>
+    <button onclick="showCompliment()">Ще один!✨</button>
+</div>
+
+<script>
+    // Функція переходу на другий екран
+    function startApp() {
+        document.getElementById('welcome-screen').classList.add('hidden');
+        document.getElementById('main-screen').classList.remove('hidden');
+    }
+
+    // Логіка втікаючої кнопки "Ні"
+    function moveButton() {
+        const btn = document.getElementById('no-btn');
+        
+        // Генеруємо випадкові координати в межах вікна
+        // Віднімаємо 100-200 пікселів, щоб кнопка не вилітала за край екрану
+        const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
+        const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
+        
+        btn.style.position = 'fixed'; // Змінюємо позицію на фіксовану, щоб вона літала всюди
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+    }
+
+    // Масив компліментів
+    const compliments = [
+        "Твоя посмішка - це щось магічне!✨",
+        "З тобою завжди затишно і приємно🌸",
+        "Твоя енергія надихає оточуючих!🔥",
+        "Твої очі сяють яскравіше за зірки!⭐",
+        "Ти справжня особистість, і це круто!❤️"
+    ];
+
+    function showCompliment() {
+        const textElement = document.getElementById('compliment-text');
+        const randomIndex = Math.floor(Math.random() * compliments.length);
+        textElement.innerText = compliments[randomIndex];
+    }
+</script>
+
+</body>
+</html>
